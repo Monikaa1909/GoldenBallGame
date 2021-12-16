@@ -36,17 +36,18 @@ function preload ()
     this.load.image('floorright3', 'assets/floorright3.png');
 
     this.load.spritesheet('star', 'assets/gol.png', { frameWidth: 24, frameHeight: 24});
-    this.load.image('bomb', 'assets/buttle.png');
+    this.load.image('bomb', 'assets/granat2.png');
+    this.load.image('faul', 'assets/faul2.png');
 
     this.load.spritesheet('lewy', 'assets/lewy.png', { frameWidth: 96, frameHeight: 150 });
-// MESSI https://www.youtube.com/watch?v=9LHqhr32-DY
 
     this.load.image('speedoshee', 'assets/oshee.png');
     this.load.image('jumposhee', 'assets/oshee.png');
-    this.load.image('crate', 'assets/crate.png');
+    this.load.image('crate', 'assets/trophy.png');
     this.load.image('chatbox', 'assets/m_chatbox.png');
 //     this.load.image('tree', 'assets/Tree_2.png');
-    this.load.spritesheet('santa', 'assets/fifaguys.png', {frameWidth: 153.375, frameHeight: 138});
+    this.load.spritesheet('santa', 'assets/fifa.png', {frameWidth: 153.375, frameHeight: 150});
+//     this.load.spritesheet('santa', 'assets/fifaguys.png', {frameWidth: 153.375, frameHeight: 138});
 //     this.load.spritesheet('santa', 'assets/santa.png', {frameWidth: 934, frameHeight: 570});
     this.load.spritesheet('ninja', 'assets/messi.png', {frameWidth: 112, frameHeight: 150});
 //     this.load.spritesheet('ninja', 'assets/ninja.png', {frameWidth: 377, frameHeight: 451});
@@ -81,6 +82,7 @@ var visibleChat = 0;
 var tree;
 var hitbox;
 var lastthrow = 0;
+var lastfaul = 0;
 var lasthit = 0;
 var ninja;
 var hearts = 3;
@@ -104,58 +106,58 @@ function create ()
     hitbox = this.physics.add.staticGroup();
 
     platforms.create(750, 738, 'bigground').setScale(0.5).refreshBody();
-    hitbox.create(750, 733, 'bigground2').setScale(0.5).refreshBody();
+    hitbox.create(750, 728, 'bigground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(650, 600, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(650, 595, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(650, 590, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(467.50, 600, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(467.5, 595, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(467.5, 590, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(832.5, 600, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(832.5, 595, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(832.5, 590, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(50, 450, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(50, 445, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(50, 440, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(232.5, 450, 'floorright').setScale(0.5).refreshBody()
-    hitbox.create(232.5, 445, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(232.5, 440, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(750, 350, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(750, 345, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(750, 340, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(567.5, 350, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(567.5, 345, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(567.5, 340, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(932.5, 350, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(932.5, 345, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(932.5, 340, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1300, 570, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1300, 565, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(1300, 560, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1117.5, 570, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1117.5, 565, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1117.5, 560, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1482.5, 570, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1482.5, 565, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(1482.5, 560, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1632, 370, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1632, 365, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(1632, 360, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1450, 370, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1450, 365, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1450, 360, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1300, 200, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1300, 195, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1300, 190, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1345, 200, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1345, 195, 'floorright3').setScale(0.5).refreshBody();
+    hitbox.create(1345, 190, 'floorright3').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
 
@@ -174,11 +176,11 @@ function create ()
 //     this.add.image(545,548,'stone').setScale(0.5);
 //     this.add.image(545,548,'stone').setScale(0.5);
 
-    let crystal = this.add.image(650, 410, 'crystal').setScale(0.75);
-    let crystal2 = this.add.image(190, 510, 'crystal').setScale(0.75);
-    crystal.flipY=true;
-    crystal2.flipY=true;
-    crystal2.flipX=true;
+//     let crystal = this.add.image(650, 410, 'crystal').setScale(0.75);
+//     let crystal2 = this.add.image(190, 510, 'crystal').setScale(0.75);
+//     crystal.flipY=true;
+//     crystal2.flipY=true;
+//     crystal2.flipX=true;
 
 //     let snowman = this.add.image(1200, 490, 'snowman').setScale(0.5)
 //     snowman.flipX=true;
@@ -203,6 +205,7 @@ function create ()
     player.setDrag(0.2)
 
     this.physics.add.overlap(player, hitbox, ninjaThrow);
+    this.physics.add.overlap(player, hitbox, faulGo);
     this.physics.add.overlap(player, lifecrystal, buyLife);
 
     chatbox = this.physics.add.staticGroup();
@@ -213,16 +216,10 @@ function create ()
     speedoshee.create(1335, 155, 'speedoshee');
 
     crate = this.physics.add.staticGroup();
-    crate.create(800, 300, 'crate').setScale(0.5).refreshBody();
+    crate.create(800, 290, 'crate').setScale(0.24).refreshBody();
 
     jumposhee = this.physics.add.staticGroup();
     jumposhee.create(800, 555, 'jumposhee');
-
-
-
-
-
-
 
     this.anims.create({
         key: 'ninja',
@@ -333,9 +330,13 @@ function create ()
     this.physics.add.overlap(player, stars, collectStar);
     santaSpeech = this.add.text(100, 583, '', { fontSize: '16px', fill: '#000000' });
     bombs = this.physics.add.group();
+    fauls = this.physics.add.group();
 
     this.physics.add.collider(bombs, platforms);
     this.physics.add.overlap(player, bombs, hitBomb);
+
+    this.physics.add.collider(fauls, platforms);
+    this.physics.add.overlap(player, fauls, hitFaul);
 
     this.physics.add.collider(speedoshee, platforms);
     this.physics.add.overlap(player, speedoshee, collectSpeedoshee);
@@ -346,14 +347,32 @@ function create ()
     this.physics.add.collider(jumposhee, platforms);
     this.physics.add.overlap(player, jumposhee, collectJumposhee);
 
-    var bomb = bombs.create(600, 475, 'bomb');
-    bomb.setBounce(1);
-    bomb.setCollideWorldBounds(true);
-    bomb.setVelocity(0, 200);
+//     var bomb = bombs.create(600, 475, 'bomb');
+//     bomb.setBounce(1);
+//     bomb.setCollideWorldBounds(true);
+//     bomb.setVelocity(0, 200);
+
+//     var faul = fauls.create(1500, 670, 'faul');
+//     faul.setScale(0.55).refreshBody();
+//     faul.setVelocity(-300, 0);
+
     this.add.image(90, 90, 'paper').setScrollFactor(0).setScale(0.3);
 
     this.text = this.add.text(32, 32).setScrollFactor(0).setFontSize(16).setColor('#000000');
 
+}
+
+function faulGo(player, hitbox){
+
+    if(Date.now() - lastfaul > 3000){
+        lastfaul = Date.now();;
+        setTimeout(function() {
+            var faul = fauls.create(1500, 670, 'faul');
+                faul.setScale(0.55).refreshBody();
+                faul.setVelocity(-300, 0);
+          }, 500);
+
+    }
 }
 
 function ninjaThrow(player, hitbox){
@@ -371,12 +390,7 @@ function ninjaThrow(player, hitbox){
             child.anims.play('ninja', true);
             child.setScale(0.8).refreshBody();
         })
-
-
     }
-
-
-
 }
 
 function buyLife(player, lifecrystal){
@@ -498,6 +512,27 @@ function collectJumposhee(player, speedoshee){
 }
 
 function hitBomb (player, bomb)
+{
+    player.setTint(0xff0000);
+    if(hearts == 0){
+        player.anims.play('turn');
+        player.setTint(0xff0000);
+        this.physics.pause();
+
+
+    }
+
+    if(Date.now() - lasthit > 500){
+        lasthit = Date.now();
+        hearts -= 1;
+
+    }
+    setTimeout(function() {
+        player.setTint(0xffffff);
+      }, 500);
+}
+
+function hitFaul (player, faul)
 {
     player.setTint(0xff0000);
     if(hearts == 0){
