@@ -36,7 +36,7 @@ function preload ()
     this.load.image('floorright3', 'assets/floorright3.png');
 
     this.load.spritesheet('star', 'assets/gol.png', { frameWidth: 24, frameHeight: 24});
-    this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('bomb', 'assets/buttle.png');
 
     this.load.spritesheet('lewy', 'assets/lewy.png', { frameWidth: 96, frameHeight: 150 });
 // MESSI https://www.youtube.com/watch?v=9LHqhr32-DY
@@ -48,7 +48,8 @@ function preload ()
 //     this.load.image('tree', 'assets/Tree_2.png');
     this.load.spritesheet('santa', 'assets/fifaguys.png', {frameWidth: 153.375, frameHeight: 138});
 //     this.load.spritesheet('santa', 'assets/santa.png', {frameWidth: 934, frameHeight: 570});
-    this.load.spritesheet('ninja', 'assets/ninja.png', {frameWidth: 377, frameHeight: 451});
+    this.load.spritesheet('ninja', 'assets/messi.png', {frameWidth: 112, frameHeight: 150});
+//     this.load.spritesheet('ninja', 'assets/ninja.png', {frameWidth: 377, frameHeight: 451});
 //     this.load.image('igloo', 'assets/Igloo.png');
 //     this.load.image('tree2', 'assets/Tree_1.png');
 //     this.load.image('snowman', 'assets/SnowMan.png');
@@ -103,58 +104,58 @@ function create ()
     hitbox = this.physics.add.staticGroup();
 
     platforms.create(750, 738, 'bigground').setScale(0.5).refreshBody();
-    hitbox.create(750, 738, 'bigground2').setScale(0.5).refreshBody();
+    hitbox.create(750, 733, 'bigground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(650, 600, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(650, 597, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(650, 595, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(467.50, 600, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(467.5, 597, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(467.5, 595, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(832.5, 600, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(832.5, 597, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(832.5, 595, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(50, 450, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(50, 447, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(50, 445, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(232.5, 450, 'floorright').setScale(0.5).refreshBody()
-    hitbox.create(232.5, 447, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(232.5, 445, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(750, 350, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(750, 347, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(750, 345, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(567.5, 350, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(567.5, 347, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(567.5, 345, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(932.5, 350, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(932.5, 347, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(932.5, 345, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1300, 570, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1300, 567, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(1300, 565, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1117.5, 570, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1117.5, 567, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1117.5, 565, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1482.5, 570, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1482.5, 567, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.create(1482.5, 565, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1632, 370, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1632, 367, 'ground2').setScale(0.5).refreshBody();
+    hitbox.create(1632, 365, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1450, 370, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1450, 367, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1450, 365, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
     platforms.create(1300, 200, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1300, 197, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.create(1300, 195, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
     platforms.create(1345, 200, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1345, 197, 'floorright3').setScale(0.5).refreshBody();
+    hitbox.create(1345, 195, 'floorright3').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
 
@@ -209,13 +210,13 @@ function create ()
     chatbox.setVisible(false);
 
     speedoshee = this.physics.add.staticGroup();
-    speedoshee.create(1335, 150, 'speedoshee');
+    speedoshee.create(1335, 155, 'speedoshee');
 
     crate = this.physics.add.staticGroup();
     crate.create(800, 300, 'crate').setScale(0.5).refreshBody();
 
     jumposhee = this.physics.add.staticGroup();
-    jumposhee.create(800, 550, 'jumposhee');
+    jumposhee.create(800, 555, 'jumposhee');
 
 
 
@@ -320,7 +321,7 @@ function create ()
         setXY: { x: 650, y: 200, stepX: 70 },
     })
     ninja.children.iterate(function(child){
-        child.setScale(0.2).refreshBody();
+        child.setScale(0.8).refreshBody();
     })
 
 
@@ -345,7 +346,7 @@ function create ()
     this.physics.add.collider(jumposhee, platforms);
     this.physics.add.overlap(player, jumposhee, collectJumposhee);
 
-    var bomb = bombs.create(600, 450, 'bomb');
+    var bomb = bombs.create(600, 475, 'bomb');
     bomb.setBounce(1);
     bomb.setCollideWorldBounds(true);
     bomb.setVelocity(0, 200);
@@ -368,7 +369,7 @@ function ninjaThrow(player, hitbox){
         ninja.children.iterate(function(child){
             var ninjaanim = child;
             child.anims.play('ninja', true);
-            child.setScale(0.2).refreshBody();
+            child.setScale(0.8).refreshBody();
         })
 
 
