@@ -454,7 +454,7 @@ function collectBall (player, ball)
 {
     ball.disableBody(true, true);
     dialogue = 0;
-    score += 10;
+    score += 1;
 
     if (balls.countActive(true) === 0)
     {
