@@ -91,14 +91,13 @@ var lifecrystal;
 var sound;
 
 
-function create ()
-{
+function create() {
 
     window.scene = this;
 
     // DODANIE DŹWIĘKU (narazie strasznie irytuje więc wyłączyłam)
-//     sound = this.sound.add('terrariaday', {loop: true});
-//     sound.play();
+    // sound = this.sound.add('terrariaday', {loop: true});
+    // sound.play();
 
     // TWORZENIE WSZYSTKICH PLATFORM:
     this.add.image(750, 380, 'stadium');
@@ -109,58 +108,64 @@ function create ()
     hitbox.create(750, 728, 'bigground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
-    platforms.create(650, 600, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(650, 590, 'ground2').setScale(0.5).refreshBody();
+    platforms.create(530, 600, 'ground').setScale(0.5).refreshBody();
+    hitbox.create(530, 590, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(467.50, 600, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(467.5, 590, 'floorleft2').setScale(0.5).refreshBody();
+    platforms.create(347.50, 600, 'floorleft').setScale(0.5).refreshBody();
+    hitbox.create(347.5, 590, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(832.5, 600, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(832.5, 590, 'floorright2').setScale(0.5).refreshBody();
-    hitbox.setVisible(true);
-
-    platforms.create(50, 450, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(50, 440, 'ground2').setScale(0.5).refreshBody();
-    hitbox.setVisible(true);
-    platforms.create(232.5, 450, 'floorright').setScale(0.5).refreshBody()
-    hitbox.create(232.5, 440, 'floorright2').setScale(0.5).refreshBody();
+    platforms.create(712.5, 600, 'floorright').setScale(0.5).refreshBody();
+    hitbox.create(712.5, 590, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
-    platforms.create(750, 350, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(750, 340, 'ground2').setScale(0.5).refreshBody();
+    platforms.create(20, 450, 'ground').setScale(0.5).refreshBody();
+    hitbox.create(20, 440, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(567.5, 350, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(567.5, 340, 'floorleft2').setScale(0.5).refreshBody();
-    hitbox.setVisible(true);
-    platforms.create(932.5, 350, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(932.5, 340, 'floorright2').setScale(0.5).refreshBody();
+    platforms.create(202.5, 450, 'floorright').setScale(0.5).refreshBody()
+    hitbox.create(202.5, 440, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
-    platforms.create(1300, 570, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1300, 560, 'ground2').setScale(0.5).refreshBody();
+    platforms.create(1310, 150, 'ground').setScale(0.5).refreshBody();
+    hitbox.create(1310, 140, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(1117.5, 570, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1117.5, 560, 'floorleft2').setScale(0.5).refreshBody();
+    platforms.create(1127.5, 150, 'floorleft').setScale(0.5).refreshBody();
+    hitbox.create(1127.5, 140, 'floorleft2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(1482.5, 570, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1482.5, 560, 'floorright2').setScale(0.5).refreshBody();
-    hitbox.setVisible(true);
-
-    platforms.create(1632, 370, 'ground').setScale(0.5).refreshBody();
-    hitbox.create(1632, 360, 'ground2').setScale(0.5).refreshBody();
-    hitbox.setVisible(true);
-    platforms.create(1450, 370, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1450, 360, 'floorleft2').setScale(0.5).refreshBody();
+    platforms.create(1492.5, 150, 'floorright').setScale(0.5).refreshBody();
+    hitbox.create(1492.5, 140, 'floorright2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
-    platforms.create(1300, 200, 'floorleft').setScale(0.5).refreshBody();
-    hitbox.create(1300, 190, 'floorleft2').setScale(0.5).refreshBody();
+    platforms.create(500, 170, 'ground').setScale(0.5).refreshBody();
+    hitbox.create(500, 160, 'ground2').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
-    platforms.create(1345, 200, 'floorright').setScale(0.5).refreshBody();
-    hitbox.create(1345, 190, 'floorright3').setScale(0.5).refreshBody();
+    platforms.create(317.5, 170, 'floorleft').setScale(0.5).refreshBody();
+    hitbox.create(317.5, 160, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.setVisible(true);
+    platforms.create(682.5, 170, 'floorright').setScale(0.5).refreshBody();
+    hitbox.create(682.5, 160, 'floorright2').setScale(0.5).refreshBody();
+    hitbox.setVisible(true);
+
+    // platforms.create(1632, 370, 'ground').setScale(0.5).refreshBody();
+    // hitbox.create(1632, 360, 'ground2').setScale(0.5).refreshBody();
+    // hitbox.setVisible(true);
+    // platforms.create(1450, 370, 'floorleft').setScale(0.5).refreshBody();
+    // hitbox.create(1450, 360, 'floorleft2').setScale(0.5).refreshBody();
+    // hitbox.setVisible(true);
+
+    platforms.create(850, 400, 'floorleft').setScale(0.5).refreshBody();
+    hitbox.create(850, 390, 'floorleft2').setScale(0.5).refreshBody();
+    hitbox.setVisible(true);
+    platforms.create(895, 400, 'floorright').setScale(0.5).refreshBody();
+    hitbox.create(895, 390, 'floorright3').setScale(0.5).refreshBody();
     hitbox.setVisible(true);
 
 
+  platforms.create(30, 280, 'floorleft').setScale(0.5).refreshBody();
+  hitbox.create(30, 270, 'floorleft2').setScale(0.5).refreshBody();
+  hitbox.setVisible(true);
+  platforms.create(75, 280, 'floorright').setScale(0.5).refreshBody();
+  hitbox.create(75, 270, 'floorright3').setScale(0.5).refreshBody();
+  hitbox.setVisible(true);
 
 
 //     tree = this.physics.add.staticGroup();
@@ -192,14 +197,13 @@ function create ()
 
     // POSTAWIENIE SERDUSZKA DODAJĄCEGO ŻYCIE (które narazie nie działa)
     lifecrystal = this.physics.add.staticGroup();
-    lifecrystal.create(1200, 475, 'lifecrystal').setScale(0.1).refreshBody();
+    lifecrystal.create(1475, 700, 'lifecrystal').setScale(0.1).refreshBody();
 
     // USTAWIENIE ZAKRESU KAMER I OGÓLNYCH SZCZEGÓŁÓW ŚWIATA
     this.cameras.main.setBounds(0,0,1500,760)
     this.cameras.main.startFollow(player, true);
     this.cameras.main.fadeIn(1000);
-    this.physics.world.bounds.width = 1500
-    this.physics.world.bounds.height = 800
+    this.physics.world.setBounds(0, -200, 1500, 1000)
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
     player.body.setGravityY(1000)
@@ -218,13 +222,13 @@ function create ()
 
     // UŁOŻENIE 2 OSHEE I TROFEUM
     speedoshee = this.physics.add.staticGroup();
-    speedoshee.create(1335, 155, 'speedoshee');
+    speedoshee.create(600, 570, 'speedoshee');
 
     trophy = this.physics.add.staticGroup();
-    trophy.create(800, 290, 'trophy').setScale(0.24).refreshBody();
+    trophy.create(1475, 100, 'trophy').setScale(0.24).refreshBody();
 
     jumposhee = this.physics.add.staticGroup();
-    jumposhee.create(800, 555, 'jumposhee');
+    jumposhee.create(50, 250, 'jumposhee');
 
     // USTAWIENIA GRAFIKI MESSIEGO, LUDZI Z FIFY I LEWANDOWSKIEGO
     this.anims.create({
@@ -260,7 +264,7 @@ function create ()
 
     // USTAWIENIE PREZENTU Z DODATKOWYMI PIŁKAMI
     present = this.physics.add.staticGroup();
-    present.create(640, 545, 'present').setScale(0.2).refreshBody();
+    present.create(540, 130, 'present').setScale(0.2).refreshBody();
     this.physics.add.overlap(player, present, collectPresent);
 
     // SPADAJĄCE PIPŁKI
@@ -276,6 +280,7 @@ function create ()
         child.setVelocityX(Phaser.Math.FloatBetween(-100, 100));
 
         child.anims.play('ballanimation', true);
+
         child.setCollideWorldBounds(true);
         child.setDamping(true)
         child.setDrag(0.5)
@@ -312,7 +317,7 @@ function create ()
     // USTAWIENIE MESSIEGO
     messi = this.physics.add.group({
         key: 'messi',
-        setXY: { x: 650, y: 200, stepX: 70 },
+        setXY: { x: 1300, y: 60, stepX: 70 },
     })
     messi.children.iterate(function(child){
         child.setScale(0.8).refreshBody();
@@ -361,8 +366,8 @@ function create ()
 
 function faulGo(player, hitbox){
 
-    if(Date.now() - lastfaul > 3000){
-        lastfaul = Date.now();;
+    if (Date.now() - lastfaul > 3000){
+        lastfaul = Date.now();
         setTimeout(function() {
             var faul = fauls.create(1500, 670, 'faul');
                 faul.setScale(0.55).refreshBody();
@@ -376,7 +381,7 @@ function messiThrow(player, hitbox){
     if(Date.now() - lastthrow > 3000){
         lastthrow = Date.now();;
         setTimeout(function() {
-            var granat = granats.create(640, 260, 'granat');
+            var granat = granats.create(1290, 120, 'granat');
             granat.setVelocity(Phaser.Math.FloatBetween(-350, -250), -200);
             granat.setBounce(1);
           }, 200);
@@ -552,42 +557,42 @@ function hitFaul (player, faul)
 }
 
 
-function update ()
-{
+function update () {
     this.text.setText([
         'Score: ' + score,
         'Lives: ' + hearts,
     ]);
 
-
-    if(visibleChat == 1){
+    if (visibleChat == 1){
         chatbox.setVisible(true);
     } else {
         chatbox.setVisible(false);
     }
 
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
         player.flipX=false;
         player.setVelocityX(-(speed));
         player.anims.play('left', true);
 
     }
-    else if (cursors.right.isDown)
-    {
+
+    else if (cursors.right.isDown) {
         player.flipX=true;
         player.setVelocityX(speed);
         player.anims.play('left', true);
     }
-    else
-    {
+
+    else {
         player.setVelocityX(0);
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down)
-    {
+    if (cursors.up.isDown && player.body.touching.down) {
         player.setVelocityY(jump);
     }
+}
 
+function onWorldBounds(player) {
+  player.reset(player.x, game.world.centerX);
+  player.reset(player.y, game.world.centerY);
 }
