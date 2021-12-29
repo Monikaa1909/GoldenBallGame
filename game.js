@@ -396,13 +396,15 @@ function messiThrow(player, hitbox){
 
 // FUNKCJA Z DODAWANIEM ŻYCIA DO OGARNIĘCIA
 function buyLife(player, lifecrystal){
-    if(score>99){
-        if(Date.now() - boughtLife > 1000){
-            hearts +=1;
-            score -=100;
-            boughtLife = Date.now();
-        }
-    }
+    hearts += 1
+    lifecrystal.disableBody(true, true)
+    // if(score>99){
+    //     if(Date.now() - boughtLife > 1000){
+    //         hearts +=1;
+    //         score -=100;
+    //         boughtLife = Date.now();
+    //     }
+    // }
 }
 
 function fifaColision(player, fifas){
