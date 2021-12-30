@@ -58,6 +58,8 @@ function preload() {
   this.load.image('present', 'assets/present.png');
   this.load.image('paper', 'assets/paper.png');
   this.load.image('scoreBackground', 'assets/score-background.png')
+  this.load.image('scoreBackground2', 'assets/score-background2.png');
+  this.load.image('livesBackground', 'assets/lives-background.png');
   this.load.image('lifecrystal', 'assets/lifecrystal.png');
   this.load.audio('terrariaday', 'assets/terrariaday.mp3');
 }
@@ -370,14 +372,16 @@ function create() {
 //     faul.setVelocity(-300, 0);
 
   // WYNIKI
-  this.add.image(70, 70, 'scoreBackground').setScrollFactor(0).setScale(0.3);
-  this.add.image(70, 178, 'scoreBackground').setScrollFactor(0).setScale(0.3);
+  this.add.image(75, 70, 'scoreBackground').setScrollFactor(0).setScale(0.3);
+  this.add.image(70, 20, 'scoreBackground2').setScrollFactor(0).setScale(0.3);
+  this.add.image(70, 130, 'livesBackground').setScrollFactor(0).setScale(0.3);
+  // this.add.image(70, 178, 'scoreBackground').setScrollFactor(0).setScale(0.3);
   // this.text = this.add.text(32, 32).setScrollFactor(0).setFontSize(16).setColor('#000000');
   // this.text = this.add.text(32, 32, '', {fontFamily: Calibri}).setScrollFactor(0).setFontSize(32).setColor('#000000')
-  this.score = this.add.text(24, 1, 'Score:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00');
-  this.lives = this.add.text(24, 110, 'Lives:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  this.score = this.add.text(24, 1, 'Score:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
+  this.lives = this.add.text(24, 110, 'Lives:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
   this.scoreResult = this.add.text(54, 32, '0', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00');
-  this.livesResult = this.add.text(54, 142, '3', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  this.livesResult = this.add.text(18, 142, '❤', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
 }
 
 function faulGo(player, hitbox) {
@@ -575,11 +579,16 @@ function hitFaul(player, faul) {
 
 
 function update() {
+  let heartsAnimation = new Array("")
   if (player.x >= 200) isFifaCollision = false
   if (score >= 10) this.scoreResult.setPosition(36, 32)
   if (score >= 100) this.scoreResult.setPosition(18, 32)
   this.scoreResult.setText(score)
-  this.livesResult.setText(hearts)
+  for (let i = 0; i < hearts; i++) {
+    heartsAnimation.push("❤")
+  }
+
+  this.livesResult.setText(heartsAnimation.join(""))
   // this.text.setText([
   //   'Score: ' + score,
   //   'Lives: ' + hearts,
