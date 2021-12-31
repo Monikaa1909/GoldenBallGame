@@ -61,7 +61,8 @@ function preload() {
   this.load.image('scoreBackground2', 'assets/score-background2.png');
   this.load.image('livesBackground', 'assets/lives-background.png');
   this.load.image('lifecrystal', 'assets/lifecrystal.png');
-  this.load.audio('terrariaday', 'assets/terrariaday.mp3');
+  this.load.audio('championsLeague', 'assets/cl-anthem.mp3');
+  this.load.audio('fans', 'assets/fans-shouts.mp3');
 }
 
 var platforms;
@@ -91,6 +92,7 @@ var presentballs;
 var boughtLife = 0;
 var lifecrystal;
 var sound;
+var sound2;
 var isFifaCollision = false;
 
 
@@ -99,8 +101,12 @@ function create() {
   window.scene = this;
 
   // DODANIE DŹWIĘKU (narazie strasznie irytuje więc wyłączyłam)
-  // sound = this.sound.add('terrariaday', {loop: true});
-  // sound.play();
+  sound = this.sound.add('championsLeague', {loop: false});
+  sound.setVolume(1)
+
+  sound2 = this.sound.add('fans', {loop: true});
+  sound2.setVolume(0.01)
+  sound2.play();
 
   // TWORZENIE WSZYSTKICH PLATFORM:
   this.add.image(750, 380, 'stadium');
@@ -521,6 +527,8 @@ function collectPresent(player, present) {
 
 // ZDOBYCIE PUCHARU
 function collectTrophy(player, trophy) {
+  sound.play();
+  sound2.stop()
   trophy.disableBody(true, true)
   trophyState = 1;
   dialogue = 0;
@@ -579,6 +587,7 @@ function hitFaul(player, faul) {
 
 
 function update() {
+  if (!sound.isPlaying && !sound2.isPlaying) sound2.play()
   let heartsAnimation = new Array("")
   if (player.x >= 200) isFifaCollision = false
   if (score >= 10) this.scoreResult.setPosition(36, 32)
