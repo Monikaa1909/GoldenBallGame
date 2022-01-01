@@ -111,6 +111,7 @@ var livesResult
 var scoreResult
 var restartButton
 var requiredAmountOfGoals = 0
+var timeOut
 
 function create() {
 
@@ -249,7 +250,6 @@ function create() {
   player.setDrag(0.2)
 
   // WYWOŁANIE FUNKCJI RZUCAJĄCEGO MESSIEGO, WJEŹDŹAJĄCEGO Z FAULEM I DODAWANIA ŻYCIA (dodawanie życie nie działa, trza zrobić :( )
-  this.physics.add.overlap(player, hitbox, messiThrow);
   this.physics.add.overlap(player, hitbox, faulGo);
   this.physics.add.overlap(player, lifecrystal, buyLife);
 
@@ -328,7 +328,7 @@ function create() {
   presentballs = this.physics.add.group({
     key: 'ball',
     repeat: 19,
-    setXY: {x: 700, y: 100, stepX: 0}
+    setXY: {x: 600, y: 100, stepX: 0}
   });
 
   presentballs.children.iterate(function (child) {
@@ -388,6 +388,7 @@ function create() {
   this.physics.add.collider(jumposhee, platforms);
   this.physics.add.overlap(player, jumposhee, collectJumposhee);
 
+  this.physics.add.overlap(player, hitbox, messiThrow);
 //     var granat = granats.create(600, 475, 'granat');
 //     granat.setBounce(1);
 //     granat.setCollideWorldBounds(true);
@@ -462,7 +463,7 @@ function messiThrow(player, hitbox) {
     if (Date.now() - lastthrow > 3000) {
       lastthrow = Date.now();
 
-      setTimeout(function () {
+      timeOut = setTimeout(function () {
         var granat = granats.create(1290, 120, 'granat');
         granat.setVelocity(Phaser.Math.FloatBetween(-350, -250), -200);
         granat.setBounce(1);
@@ -474,8 +475,6 @@ function messiThrow(player, hitbox) {
         child.setScale(0.8).refreshBody();
       })
     }
-  } else {
-    granats.clear()
   }
 }
 
@@ -487,9 +486,8 @@ function buyLife(player, lifecrystal) {
 
 function fifaColision(player, fifas) {
   isFifaCollision = true
-  // granats.setVisible(false)
   granats.clear()
-  // fauls.setVisible(false)
+  granats.setVisible(false)
   fauls.clear()
   if (trophyState == 0) {
     if (dialogue == 0) {
@@ -521,6 +519,10 @@ function fifaColision(player, fifas) {
     } else if (dialogue == 0 && score < requiredAmountOfGoals) {
       visibleChat = 1;
       fifaSpeech.setText('Masz już puchar ale przydałoby\n się więcej goli');
+      if (sound.isPlaying) {
+        sound.stop()
+        sound2.play()
+      }
       dialogue = 3
 
     } else if (dialogue == 1) {
@@ -561,10 +563,10 @@ function collectBall(player, ball) {
 
     var x = (player.x < 900) ? Phaser.Math.Between(900, 1500) : Phaser.Math.Between(0, 900);
 
-    var granat = granats.create(x, 16, 'granat');
-    granat.setBounce(1);
-    granat.setCollideWorldBounds(true);
-    granat.setVelocity(Phaser.Math.Between(-150, 150), 150);
+    // var granat = granats.create(x, 16, 'granat');
+    // granat.setBounce(1);
+    // granat.setCollideWorldBounds(false);
+    // granat.setVelocity(Phaser.Math.Between(-150, 150), 150);
 
   }
 }
