@@ -61,8 +61,11 @@ function preload() {
   this.load.image('scoreBackground2', 'assets/score-background2.png');
   this.load.image('livesBackground', 'assets/lives-background.png');
   this.load.image('lifecrystal', 'assets/lifecrystal.png');
+  this.load.image('lewyGoldenBall', 'assets/lewy-golden-ball.png');
+  this.load.image('messiGoldenBall', 'assets/messi-golden-ball.png');
   this.load.audio('championsLeague', 'assets/cl-anthem.mp3');
   this.load.audio('fans', 'assets/fans-shouts.mp3');
+  this.load.audio('lost', 'assets/game-lost-sound.mp3');
 }
 
 var platforms;
@@ -87,13 +90,23 @@ var lastfaul = 0;
 var lasthit = 0;
 var messi;
 var hearts = 3;
+var physics
 var present;
 var presentballs;
 var boughtLife = 0;
 var lifecrystal;
 var sound;
 var sound2;
+var sound3;
 var isFifaCollision = false;
+var isgameOver = 0
+var gameOverText
+var gameOverText2
+var gameOverImage
+var lewyGoldenBall
+var messiGoldenBall
+var livesResult
+var scoreResult
 
 
 function create() {
@@ -107,6 +120,8 @@ function create() {
   sound2 = this.sound.add('fans', {loop: true});
   sound2.setVolume(0.01)
   sound2.play();
+
+  sound3 = this.sound.add('lost', {loop: false});
 
   // TWORZENIE WSZYSTKICH PLATFORM:
   this.add.image(750, 380, 'stadium');
@@ -211,6 +226,7 @@ function create() {
 //     igloo.flipX=true;
 
   // USTAWIENIE LEWANDOWSKIEGO - GŁÓWNEGO GRACZA
+  physics = this.physics
   player = this.physics.add.sprite(300, 600, 'lewy').setScale(0.8).refreshBody();
 
   // POSTAWIENIE SERDUSZKA DODAJĄCEGO ŻYCIE (które narazie nie działa)
@@ -381,13 +397,27 @@ function create() {
   this.add.image(75, 70, 'scoreBackground').setScrollFactor(0).setScale(0.3);
   this.add.image(70, 20, 'scoreBackground2').setScrollFactor(0).setScale(0.3);
   this.add.image(70, 130, 'livesBackground').setScrollFactor(0).setScale(0.3);
-  // this.add.image(70, 178, 'scoreBackground').setScrollFactor(0).setScale(0.3);
-  // this.text = this.add.text(32, 32).setScrollFactor(0).setFontSize(16).setColor('#000000');
-  // this.text = this.add.text(32, 32, '', {fontFamily: Calibri}).setScrollFactor(0).setFontSize(32).setColor('#000000')
+
+  gameOverImage = this.add.image(0, 0, 'scoreBackground').setScrollFactor(0).setScale(100);
+  gameOverImage.setVisible(false)
+
+  lewyGoldenBall = this.add.image(400, 450, 'lewyGoldenBall').setScrollFactor(0).setScale(0.7);
+  messiGoldenBall = this.add.image(400, 450, 'messiGoldenBall').setScrollFactor(0).setScale(0.6);
+
+  lewyGoldenBall.setVisible(false)
+  messiGoldenBall.setVisible(false)
+
+
+  gameOverText = this.add.text(250, 200, 'Game over', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  gameOverText2 = this.add.text(220, 270, 'Leo Messi won golden ball', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+
+  gameOverText.setVisible(false)
+  gameOverText2.setVisible(false)
+
   this.score = this.add.text(24, 1, 'Score:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
   this.lives = this.add.text(24, 110, 'Lives:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
-  this.scoreResult = this.add.text(54, 32, '0', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00');
-  this.livesResult = this.add.text(18, 142, '❤', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  scoreResult = this.add.text(54, 32, '0', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00');
+  livesResult = this.add.text(18, 142, '❤', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
 }
 
 function faulGo(player, hitbox) {
@@ -426,24 +456,20 @@ function messiThrow(player, hitbox) {
   } else {
     granats.clear()
   }
-
 }
 
 // FUNKCJA Z DODAWANIEM ŻYCIA DO OGARNIĘCIA
 function buyLife(player, lifecrystal) {
   hearts += 1
   lifecrystal.disableBody(true, true)
-  // if(score>99){
-  //     if(Date.now() - boughtLife > 1000){
-  //         hearts +=1;
-  //         score -=100;
-  //         boughtLife = Date.now();
-  //     }
-  // }
 }
 
 function fifaColision(player, fifas) {
   isFifaCollision = true
+  // granats.setVisible(false)
+  granats.clear()
+  // fauls.setVisible(false)
+  fauls.clear()
   if (trophyState == 0) {
     if (dialogue == 0) {
       visibleChat = 1;
@@ -472,10 +498,12 @@ function fifaColision(player, fifas) {
       fifaSpeech.setText('Odnalazła się!');
       dialogue = 1;
     } else if (dialogue == 1) {
+      isgameOver = 2
       setTimeout(function () {
         fifaSpeech.setText('Oto obiecana nagroda');
         dialogue = 2;
         score += 2;
+        gameOver()
       }, 2000);
     } else if (dialogue == 2) {
       setTimeout(function () {
@@ -541,19 +569,16 @@ function collectSpeedoshee(player, speedoshee) {
 
 function collectJumposhee(player, speedoshee) {
   speedoshee.disableBody(true, true)
-
   jump -= 200;
 }
 
 function hitGranat(player, granat) {
-  player.setTint(0xff0000);
   if (hearts == 0) {
     player.anims.play('turn');
-    player.setTint(0xff0000);
-    this.physics.pause();
-
-
+    isgameOver = 1;
+    gameOver()
   }
+  player.setTint(0xff0000);
 
   if (Date.now() - lasthit > 500) {
     lasthit = Date.now();
@@ -566,38 +591,64 @@ function hitGranat(player, granat) {
 }
 
 function hitFaul(player, faul) {
-  player.setTint(0xff0000);
   if (hearts == 0) {
     player.anims.play('turn');
-    player.setTint(0xff0000);
-    this.physics.pause();
-
-
+    isgameOver = 1;
+    gameOver()
   }
 
+  player.setTint(0xff0000);
   if (Date.now() - lasthit > 500) {
     lasthit = Date.now();
     hearts -= 1;
-
   }
+
   setTimeout(function () {
     player.setTint(0xffffff);
   }, 500);
 }
 
+function gameOver() {
+  fauls.setVisible(false)
+  fauls.clear()
+  granats.setVisible(false)
+  granats.clear()
+  physics.pause();
+  gameOverImage.setVisible(true)
+  gameOverText.setVisible(true)
+  if (isgameOver === 2) {
+    gameOverText.setText("Game won!")
+    gameOverText2.setPosition(145, 270).setText('Robert Lewandowski won golden ball').setVisible(true)
+    lewyGoldenBall.setVisible(true)
+  } else {
+    gameOverText2.setVisible(true).setColor('#ff0000')
+    messiGoldenBall.setVisible(true)
+    sound.stop()
+    sound2.stop()
+    sound3.play()
+  }
+
+  livesResult.setVisible(false)
+  scoreResult.setVisible(false)
+}
 
 function update() {
-  if (!sound.isPlaying && !sound2.isPlaying) sound2.play()
+  if (!sound.isPlaying && !sound2.isPlaying && isgameOver !== 1) sound2.play()
+  if ((!sound.isPlaying || sound2.isPlaying) && isFifaCollision && trophyState === 1) {
+    sound2.stop()
+    sound.play()
+  }
+
   let heartsAnimation = new Array("")
   if (player.x >= 200) isFifaCollision = false
-  if (score >= 10) this.scoreResult.setPosition(36, 32)
-  if (score >= 100) this.scoreResult.setPosition(18, 32)
-  this.scoreResult.setText(score)
+  if (score >= 10) scoreResult.setPosition(36, 32)
+  if (score >= 100) scoreResult.setPosition(18, 32)
+  scoreResult.setText(score)
   for (let i = 0; i < hearts; i++) {
     heartsAnimation.push("❤")
   }
 
-  this.livesResult.setText(heartsAnimation.join(""))
+  livesResult.setText(heartsAnimation.join(""))
   // this.text.setText([
   //   'Score: ' + score,
   //   'Lives: ' + hearts,
@@ -626,9 +677,4 @@ function update() {
   if (cursors.up.isDown && player.body.touching.down) {
     player.setVelocityY(jump);
   }
-}
-
-function onWorldBounds(player) {
-  player.reset(player.x, game.world.centerX);
-  player.reset(player.y, game.world.centerY);
 }
