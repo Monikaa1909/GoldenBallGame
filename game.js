@@ -112,11 +112,13 @@ var scoreResult
 var restartButton
 var requiredAmountOfGoals = 0
 var timeOut
+var array = []
 
 function create() {
 
   window.scene = this;
 
+  // requiredAmountOfGoals = 20
   requiredAmountOfGoals = Math.floor(Math.random() * (20)) + 50;
   // DODANIE DŹWIĘKU (narazie strasznie irytuje więc wyłączyłam)
   sound = this.sound.add('championsLeague', {loop: false});
@@ -452,8 +454,6 @@ function faulGo(player, hitbox) {
         faul.setVelocity(-300, 0);
       }, 500);
     }
-  } else {
-    fauls.clear()
   }
 
 }
@@ -467,6 +467,7 @@ function messiThrow(player, hitbox) {
         var granat = granats.create(1290, 120, 'granat');
         granat.setVelocity(Phaser.Math.FloatBetween(-350, -250), -200);
         granat.setBounce(1);
+        array.push(granat)
       }, 200);
 
       messi.children.iterate(function (child) {
@@ -487,8 +488,8 @@ function buyLife(player, lifecrystal) {
 function fifaColision(player, fifas) {
   isFifaCollision = true
   granats.clear()
-  granats.setVisible(false)
   fauls.clear()
+
   if (trophyState == 0) {
     if (dialogue == 0) {
       visibleChat = 1;
@@ -607,46 +608,55 @@ function collectJumposhee(player, speedoshee) {
 }
 
 function hitGranat(player, granat) {
-  if (hearts == 0) {
-    player.anims.play('turn');
-    isgameOver = 1;
-    gameOver()
-  }
-  player.setTint(0xff0000);
+  if (isgameOver !== 2) {
+    if (hearts == 0) {
+      player.anims.play('turn');
+      isgameOver = 1;
+      gameOver()
+    }
+    player.setTint(0xff0000);
 
-  if (Date.now() - lasthit > 500) {
-    lasthit = Date.now();
-    hearts -= 1;
+    if (Date.now() - lasthit > 500) {
+      lasthit = Date.now();
+      hearts -= 1;
 
+    }
+    setTimeout(function () {
+      player.setTint(0xffffff);
+    }, 500);
   }
-  setTimeout(function () {
-    player.setTint(0xffffff);
-  }, 500);
+
 }
 
 function hitFaul(player, faul) {
-  if (hearts == 0) {
-    player.anims.play('turn');
-    isgameOver = 1;
-    gameOver()
+  if (isgameOver !== 2) {
+    if (hearts == 0) {
+      player.anims.play('turn');
+      isgameOver = 1;
+      gameOver()
+    }
+
+    player.setTint(0xff0000);
+    if (Date.now() - lasthit > 500) {
+      lasthit = Date.now();
+      hearts -= 1;
+    }
+
+    setTimeout(function () {
+      player.setTint(0xffffff);
+    }, 500);
   }
 
-  player.setTint(0xff0000);
-  if (Date.now() - lasthit > 500) {
-    lasthit = Date.now();
-    hearts -= 1;
-  }
-
-  setTimeout(function () {
-    player.setTint(0xffffff);
-  }, 500);
 }
 
 function gameOver() {
+  array.forEach(v => {
+    v.setVisible(false)
+  })
+  array = []
+
   restartButton.setVisible(true)
-  fauls.setVisible(false)
   fauls.clear()
-  granats.setVisible(false)
   granats.clear()
   physics.pause();
   gameOverImage.setVisible(true)
