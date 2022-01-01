@@ -452,6 +452,7 @@ function faulGo(player, hitbox) {
         var faul = fauls.create(1500, 670, 'faul');
         faul.setScale(0.55).refreshBody();
         faul.setVelocity(-300, 0);
+        array.push(faul)
       }, 500);
     }
   }
