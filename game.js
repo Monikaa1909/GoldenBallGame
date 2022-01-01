@@ -63,9 +63,11 @@ function preload() {
   this.load.image('lifecrystal', 'assets/lifecrystal.png');
   this.load.image('lewyGoldenBall', 'assets/lewy-golden-ball.png');
   this.load.image('messiGoldenBall', 'assets/messi-golden-ball.png');
+  this.load.image('playAgain', 'assets/button_play-again.png');
   this.load.audio('championsLeague', 'assets/cl-anthem.mp3');
   this.load.audio('fans', 'assets/fans-shouts.mp3');
   this.load.audio('lost', 'assets/game-lost-sound.mp3');
+  // this.load.spritesheet('button', 'assets/test.png', {frameWidth: 191, frameHeight: 71})
 }
 
 var platforms;
@@ -107,12 +109,14 @@ var lewyGoldenBall
 var messiGoldenBall
 var livesResult
 var scoreResult
-
+var restartButton
+var requiredAmountOfGoals = 0
 
 function create() {
 
   window.scene = this;
 
+  requiredAmountOfGoals = Math.floor(Math.random() * (20)) + 50;
   // DODANIE DŹWIĘKU (narazie strasznie irytuje więc wyłączyłam)
   sound = this.sound.add('championsLeague', {loop: false});
   sound.setVolume(1)
@@ -407,6 +411,23 @@ function create() {
   lewyGoldenBall.setVisible(false)
   messiGoldenBall.setVisible(false)
 
+  restartButton = this.add.sprite(600, 560, 'playAgain').setInteractive().setScrollFactor(0).setScale(0.6).setVisible(false)
+
+  restartButton.addListener('pointerdown', () => {
+    console.log("listener is working fine")
+    restartGame()
+    this.scene.restart()
+  })
+  //
+  // playbtn.setPerspective(600);
+  //
+  //
+  // restartButton.addListener('click', event => {
+  //   this.restart();
+  // })
+  // restartButton.on('click', (event) => {
+  // });
+
 
   gameOverText = this.add.text(250, 200, 'Game over', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
   gameOverText2 = this.add.text(220, 270, 'Leo Messi won golden ball', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
@@ -414,10 +435,10 @@ function create() {
   gameOverText.setVisible(false)
   gameOverText2.setVisible(false)
 
-  this.score = this.add.text(24, 1, 'Score:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
-  this.lives = this.add.text(24, 110, 'Lives:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000');
-  scoreResult = this.add.text(54, 32, '0', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00');
-  livesResult = this.add.text(18, 142, '❤', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  this.score = this.add.text(24, 1, 'Score:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000')
+  this.lives = this.add.text(24, 110, 'Lives:', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#000000')
+  scoreResult = this.add.text(54, 32, '0', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#efcc00')
+  livesResult = this.add.text(18, 142, '❤', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000')
 }
 
 function faulGo(player, hitbox) {
@@ -493,10 +514,15 @@ function fifaColision(player, fifas) {
       }, 2000);
     }
   } else {
-    if (dialogue == 0) {
+    if (dialogue == 0 && score >= requiredAmountOfGoals) {
       visibleChat = 1;
       fifaSpeech.setText('Odnalazła się!');
       dialogue = 1;
+    } else if (dialogue == 0 && score < requiredAmountOfGoals) {
+      visibleChat = 1;
+      fifaSpeech.setText('Masz już puchar ale przydałoby\n się więcej goli');
+      dialogue = 3
+
     } else if (dialogue == 1) {
       isgameOver = 2
       setTimeout(function () {
@@ -509,6 +535,12 @@ function fifaColision(player, fifas) {
       setTimeout(function () {
         fifaSpeech.setText('');
         dialogue = 3;
+        visibleChat = 0;
+      }, 2000);
+    } else if (dialogue == 3) {
+      setTimeout(function () {
+        fifaSpeech.setText('');
+        dialogue = 0;
         visibleChat = 0;
       }, 2000);
     }
@@ -609,6 +641,7 @@ function hitFaul(player, faul) {
 }
 
 function gameOver() {
+  restartButton.setVisible(true)
   fauls.setVisible(false)
   fauls.clear()
   granats.setVisible(false)
@@ -634,7 +667,7 @@ function gameOver() {
 
 function update() {
   if (!sound.isPlaying && !sound2.isPlaying && isgameOver !== 1) sound2.play()
-  if ((!sound.isPlaying || sound2.isPlaying) && isFifaCollision && trophyState === 1) {
+  if ((!sound.isPlaying || sound2.isPlaying) && isFifaCollision && trophyState === 1 && score >= requiredAmountOfGoals) {
     sound2.stop()
     sound.play()
   }
@@ -677,4 +710,26 @@ function update() {
   if (cursors.up.isDown && player.body.touching.down) {
     player.setVelocityY(jump);
   }
+}
+
+function restartGame() {
+  sound.stop()
+  sound2.stop()
+  sound3.stop()
+  hearts = 3
+  score = 0
+  chatbox.setVisible(false)
+  fifaSpeech = "";
+  speed = 200;
+  jump = -800; //800
+  dialogue = 0;
+  trophyState = 0;
+  visibleChat = 0;
+  lastthrow = 0;
+  lastfaul = 0;
+  lasthit = 0;
+  hearts = 3;
+  boughtLife = 0;
+  isFifaCollision = false;
+  isgameOver = 0
 }
