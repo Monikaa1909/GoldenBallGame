@@ -62,7 +62,7 @@ function preload() {
   this.load.image('livesBackground', 'assets/lives-background.png');
   this.load.image('lifecrystal', 'assets/lifecrystal.png');
   this.load.image('lewyGoldenBall', 'assets/lewy-golden-ball.png');
-  this.load.image('messiGoldenBall', 'assets/messi-golden-ball.png');
+  this.load.image('messiGoldenBall', 'assets/messi-won.png');
   this.load.image('playAgain', 'assets/button_play-again.png');
   this.load.audio('championsLeague', 'assets/cl-anthem.mp3');
   this.load.audio('fans', 'assets/fans-shouts.mp3');
@@ -330,7 +330,7 @@ function create() {
   presentballs = this.physics.add.group({
     key: 'ball',
     repeat: 19,
-    setXY: {x: 600, y: 100, stepX: 0}
+    setXY: {x: 535, y: -40, stepX: 0}
   });
 
   presentballs.children.iterate(function (child) {
@@ -370,7 +370,7 @@ function create() {
   this.physics.add.collider(presentballs, platforms);
   this.physics.add.overlap(player, balls, collectBall);
 
-  fifaSpeech = this.add.text(100, 583, '', {fontSize: '16px', fill: '#000000'});
+  fifaSpeech = this.add.text(100, 583, '', {fontSize: '15px', fill: '#000000'});
 
   granats = this.physics.add.group();
   fauls = this.physics.add.group();
@@ -409,7 +409,7 @@ function create() {
   gameOverImage.setVisible(false)
 
   lewyGoldenBall = this.add.image(400, 450, 'lewyGoldenBall').setScrollFactor(0).setScale(0.7);
-  messiGoldenBall = this.add.image(400, 450, 'messiGoldenBall').setScrollFactor(0).setScale(0.6);
+  messiGoldenBall = this.add.image(400, 450, 'messiGoldenBall').setScrollFactor(0).setScale(0.5);
 
   lewyGoldenBall.setVisible(false)
   messiGoldenBall.setVisible(false)
@@ -432,8 +432,8 @@ function create() {
   // });
 
 
-  gameOverText = this.add.text(250, 200, 'Game over', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
-  gameOverText2 = this.add.text(220, 270, 'Leo Messi won golden ball', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  gameOverText = this.add.text(250, 190, 'Game over', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
+  gameOverText2 = this.add.text(220, 260, 'Leo Messi won golden ball', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
 
   gameOverText.setVisible(false)
   gameOverText2.setVisible(false)
@@ -516,7 +516,7 @@ function fifaColision(player, fifas) {
   } else {
     if (dialogue == 0 && score >= requiredAmountOfGoals) {
       visibleChat = 1;
-      fifaSpeech.setText('Odnalazła się!');
+      fifaSpeech.setText('Odnalazła się! Oto Twoja nagroda');
       dialogue = 1;
     } else if (dialogue == 0 && score < requiredAmountOfGoals) {
       visibleChat = 1;
@@ -530,7 +530,7 @@ function fifaColision(player, fifas) {
     } else if (dialogue == 1) {
       isgameOver = 2
       setTimeout(function () {
-        fifaSpeech.setText('Oto obiecana nagroda');
+        fifaSpeech.setText('');
         dialogue = 2;
         score += 2;
         gameOver()
@@ -663,6 +663,7 @@ function gameOver() {
   gameOverImage.setVisible(true)
   gameOverText.setVisible(true)
   if (isgameOver === 2) {
+    gameOverText.setPosition(250, 200)
     gameOverText.setText("Game won!")
     gameOverText2.setPosition(145, 270).setText('Robert Lewandowski won golden ball').setVisible(true)
     lewyGoldenBall.setVisible(true)
