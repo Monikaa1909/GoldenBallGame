@@ -45,18 +45,11 @@ function preload() {
 
   this.load.image('trophy', 'assets/trophy.png');
   this.load.image('chatbox', 'assets/m_chatbox.png');
-//     this.load.image('tree', 'assets/Tree_2.png');
   this.load.spritesheet('fifa', 'assets/fifa.png', {frameWidth: 153.375, frameHeight: 150});
   this.load.spritesheet('messi', 'assets/messi.png', {frameWidth: 112, frameHeight: 150});
-//     this.load.image('igloo', 'assets/Igloo.png');
-//     this.load.image('tree2', 'assets/Tree_1.png');
-//     this.load.image('snowman', 'assets/SnowMan.png');
-  this.load.image('stone', 'assets/Stone.png');
-//     this.load.image('crystal', 'assets/Crystal.png');
   this.load.image('sign1', 'assets/Sign_1.png');
   this.load.image('sign2', 'assets/Sign_2.png');
   this.load.image('present', 'assets/present.png');
-  this.load.image('paper', 'assets/paper.png');
   this.load.image('scoreBackground', 'assets/score-background.png')
   this.load.image('scoreBackground2', 'assets/score-background2.png');
   this.load.image('livesBackground', 'assets/lives-background.png');
@@ -67,7 +60,6 @@ function preload() {
   this.load.audio('championsLeague', 'assets/cl-anthem.mp3');
   this.load.audio('fans', 'assets/fans-shouts.mp3');
   this.load.audio('lost', 'assets/game-lost-sound.mp3');
-  // this.load.spritesheet('button', 'assets/test.png', {frameWidth: 191, frameHeight: 71})
 }
 
 var platforms;
@@ -186,13 +178,6 @@ function create() {
   hitbox.create(682.5, 160, 'floorright2').setScale(0.5).refreshBody();
   hitbox.setVisible(true);
 
-  // platforms.create(1632, 370, 'ground').setScale(0.5).refreshBody();
-  // hitbox.create(1632, 360, 'ground2').setScale(0.5).refreshBody();
-  // hitbox.setVisible(true);
-  // platforms.create(1450, 370, 'floorleft').setScale(0.5).refreshBody();
-  // hitbox.create(1450, 360, 'floorleft2').setScale(0.5).refreshBody();
-  // hitbox.setVisible(true);
-
   platforms.create(850, 400, 'floorleft').setScale(0.5).refreshBody();
   hitbox.create(850, 390, 'floorleft2').setScale(0.5).refreshBody();
   hitbox.setVisible(true);
@@ -200,37 +185,12 @@ function create() {
   hitbox.create(895, 390, 'floorright3').setScale(0.5).refreshBody();
   hitbox.setVisible(true);
 
-
   platforms.create(30, 280, 'floorleft').setScale(0.5).refreshBody();
   hitbox.create(30, 270, 'floorleft2').setScale(0.5).refreshBody();
   hitbox.setVisible(true);
   platforms.create(75, 280, 'floorright').setScale(0.5).refreshBody();
   hitbox.create(75, 270, 'floorright3').setScale(0.5).refreshBody();
   hitbox.setVisible(true);
-
-
-//     tree = this.physics.add.staticGroup();
-//     tree.create(650, 215, 'tree').setScale(0.75);
-
-//     this.add.image(180,385,'sign2').setScale(0.75);
-//     this.add.image(1700,575,'tree2').setScale(0.9);
-
-//     this.add.image(545,548,'stone').setScale(0.5);
-//     this.add.image(545,548,'stone').setScale(0.5);
-
-
-//     let crystal = this.add.image(650, 410, 'crystal').setScale(0.75);
-//     let crystal2 = this.add.image(190, 510, 'crystal').setScale(0.75);
-//     crystal.flipY=true;
-//     crystal2.flipY=true;
-//     crystal2.flipX=true;
-
-//     let snowman = this.add.image(1200, 490, 'snowman').setScale(0.5)
-//     snowman.flipX=true;
-
-
-//     let igloo = this.add.image(100,650,'igloo').setScale(0.5);
-//     igloo.flipX=true;
 
   // USTAWIENIE LEWANDOWSKIEGO - GŁÓWNEGO GRACZA
   physics = this.physics
@@ -251,7 +211,7 @@ function create() {
   player.setDamping(true)
   player.setDrag(0.2)
 
-  // WYWOŁANIE FUNKCJI RZUCAJĄCEGO MESSIEGO, WJEŹDŹAJĄCEGO Z FAULEM I DODAWANIA ŻYCIA (dodawanie życie nie działa, trza zrobić :( )
+  // WYWOŁANIE FUNKCJI RZUCAJĄCEGO MESSIEGO, WJEŹDŹAJĄCEGO Z FAULEM I DODAWANIA ŻYCIA
   this.physics.add.overlap(player, hitbox, faulGo);
   this.physics.add.overlap(player, lifecrystal, buyLife);
 
@@ -351,7 +311,6 @@ function create() {
   fifas.children.iterate(function (child) {
     child.anims.play('fifaidle', true);
     child.setScale(0.8).refreshBody();
-
   })
 
   // USTAWIENIE MESSIEGO
@@ -359,6 +318,7 @@ function create() {
     key: 'messi',
     setXY: {x: 1300, y: 60, stepX: 70},
   })
+
   messi.children.iterate(function (child) {
     child.setScale(0.8).refreshBody();
   })
@@ -391,14 +351,6 @@ function create() {
   this.physics.add.overlap(player, jumposhee, collectJumposhee);
 
   this.physics.add.overlap(player, hitbox, messiThrow);
-//     var granat = granats.create(600, 475, 'granat');
-//     granat.setBounce(1);
-//     granat.setCollideWorldBounds(true);
-//     granat.setVelocity(0, 200);
-
-//     var faul = fauls.create(1500, 670, 'faul');
-//     faul.setScale(0.55).refreshBody();
-//     faul.setVelocity(-300, 0);
 
   // WYNIKI
   this.add.image(75, 70, 'scoreBackground').setScrollFactor(0).setScale(0.3);
@@ -421,16 +373,6 @@ function create() {
     restartGame()
     this.scene.restart()
   })
-  //
-  // playbtn.setPerspective(600);
-  //
-  //
-  // restartButton.addListener('click', event => {
-  //   this.restart();
-  // })
-  // restartButton.on('click', (event) => {
-  // });
-
 
   gameOverText = this.add.text(250, 190, 'Game over', { fontFamily: 'Arial', fontSize: '64px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
   gameOverText2 = this.add.text(220, 260, 'Leo Messi won golden ball', { fontFamily: 'Arial', fontSize: '32px', fill: '#000', fontWeight: 'bold' }).setScrollFactor(0).setColor('#ff0000');
@@ -456,7 +398,6 @@ function faulGo(player, hitbox) {
       }, 500);
     }
   }
-
 }
 
 function messiThrow(player, hitbox) {
@@ -564,11 +505,6 @@ function collectBall(player, ball) {
     });
 
     var x = (player.x < 900) ? Phaser.Math.Between(900, 1500) : Phaser.Math.Between(0, 900);
-
-    // var granat = granats.create(x, 16, 'granat');
-    // granat.setBounce(1);
-    // granat.setCollideWorldBounds(false);
-    // granat.setVelocity(Phaser.Math.Between(-150, 150), 150);
 
   }
 }
